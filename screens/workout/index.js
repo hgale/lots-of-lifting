@@ -4,7 +4,13 @@
 
 import React from 'react'
 
-import { View, Text, TextInput, ListView } from 'react-native'
+import {
+  View,
+  Text,
+  TextInput,
+  ListView,
+  TouchableHighlight
+} from 'react-native'
 
 import Fuse from 'fuse.js'
 
@@ -46,11 +52,18 @@ class WorkoutScreen extends React.Component {
     })
   }
 
-  renderRow(rowData) {
+  onPressRow(rowID, rowData) {
+    console.log('onPressRow hit new new')
+    console.log(rowID)
+  }
+
+  renderRow(rowData, sectionID, rowID) {
      return (
-       <View style={style.listItemContainer}>
-        <Text style={style.listItem}>{rowData.title}</Text>
-       </View>
+       <TouchableHighlight onPress={this.onPressRow.bind(rowID, rowData)}>
+         <View style={style.listItemContainer}>
+          <Text style={style.listItem}>{rowData.title}</Text>
+         </View>
+      </TouchableHighlight>
      )
    }
 
@@ -71,7 +84,7 @@ class WorkoutScreen extends React.Component {
           removeClippedSubviews={false}
           enableEmptySections={true}
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => this.renderRow(rowData)}
+          renderRow={this.renderRow.bind(this)}
         />
       </View>
     )

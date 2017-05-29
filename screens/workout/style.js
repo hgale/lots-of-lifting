@@ -11,7 +11,7 @@ export default StyleSheet.create({
   title: {
     marginTop: 25,
     color: 'black',
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold'
   },
   list: {
@@ -33,6 +33,7 @@ export default StyleSheet.create({
   input: {
     height: 40,
     backgroundColor: 'white',
-    marginBottom: 15,
+    marginBottom: 10,
+    marginTop: 10
   },
 })
