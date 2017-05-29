@@ -9,7 +9,8 @@ import {
   Text,
   TextInput,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  Modal
 } from 'react-native'
 
 import Fuse from 'fuse.js'
@@ -29,7 +30,9 @@ class WorkoutScreen extends React.Component {
     super()
     this.state = {
       query: '',
-      dataSource: ds.cloneWithRows(Exercises)
+      dataSource: ds.cloneWithRows(Exercises),
+      modalVisible: false,
+      selectedItem:{}
     }
     this.handleSearchExercises = this.handleSearchExercises.bind(this)
   }
@@ -52,14 +55,15 @@ class WorkoutScreen extends React.Component {
     })
   }
 
-  onPressRow(rowID, rowData) {
+  onPressRow(rowData) {
     console.log('onPressRow hit new new')
-    console.log(rowID)
+    console.log(rowData)
+    this.setState({selectedItem: rowData, modalVisible: true})
   }
 
   renderRow(rowData, sectionID, rowID) {
      return (
-       <TouchableHighlight onPress={this.onPressRow.bind(rowID, rowData)}>
+       <TouchableHighlight onPress={this.onPressRow.bind(this, rowData)}>
          <View style={style.listItemContainer}>
           <Text style={style.listItem}>{rowData.title}</Text>
          </View>
@@ -70,6 +74,14 @@ class WorkoutScreen extends React.Component {
   render () {
     return (
       <View style={style.container}>
+        <Modal
+           animationType={'none'}
+           transparent={false}
+           visible={this.state.modalVisible}
+           onRequestClose={() => this.setState({modalVisible: false})}
+           >
+            <Text style={style.title}>{this.state.selectedItem.title}</Text>
+         </Modal>
         <Text style={style.title}>Create a Workout</Text>
         <TextInput
           style={style.input}
