@@ -10,12 +10,12 @@ import {
   TextInput,
   ListView,
   TouchableHighlight,
-  Modal
 } from 'react-native'
 
 import Fuse from 'fuse.js'
 
 import Exercises from './exercises'
+import Exercise from '../exercise/'
 
 import style from './style'
 
@@ -31,15 +31,20 @@ class WorkoutScreen extends React.Component {
     this.state = {
       query: '',
       dataSource: ds.cloneWithRows(Exercises),
-      modalVisible: false,
-      selectedItem:{}
+      selectedExercise: null
     }
     this.handleSearchExercises = this.handleSearchExercises.bind(this)
+    this.handleSaveExercise = this.handleSaveExercise.bind(this)
+  }
+
+  handleSaveExercise (exercise) {
+    // TODO: Wire up to redux
+    console.log('handleSaveExercise hit with, ', exercise);
   }
 
   handleSearchExercises (event) {
-    let searchText = event.nativeEvent.text;
-    this.setState({query: searchText});
+    let searchText = event.nativeEvent.text
+    this.setState({query: searchText})
     var options = {
       shouldSort: true,
       matchAllTokens: true,
@@ -58,7 +63,7 @@ class WorkoutScreen extends React.Component {
   onPressRow(rowData) {
     console.log('onPressRow hit new new')
     console.log(rowData)
-    this.setState({selectedItem: rowData, modalVisible: true})
+    this.setState({selectedExercise: rowData})
   }
 
   renderRow(rowData, sectionID, rowID) {
@@ -74,14 +79,14 @@ class WorkoutScreen extends React.Component {
   render () {
     return (
       <View style={style.container}>
-        <Modal
-           animationType={'none'}
-           transparent={false}
-           visible={this.state.modalVisible}
-           onRequestClose={() => this.setState({modalVisible: false})}
-           >
-            <Text style={style.title}>{this.state.selectedItem.title}</Text>
-         </Modal>
+        { this.state.selectedExercise ?
+          <Exercise
+            type={this.state.selectedExercise.type}
+            title={this.state.selectedExercise.title}
+            saveWorkout={this.handleSaveExercise}
+            close={() => {this.setState({selectedExercise: null})}}/>
+            : null
+        }
         <Text style={style.title}>Create a Workout</Text>
         <TextInput
           style={style.input}
