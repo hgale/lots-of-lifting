@@ -28,7 +28,9 @@ class WorkoutScreen extends React.Component {
     this.handleSearchExercises = this.handleSearchExercises.bind(this)
   }
 
-  handleSearchExercises () {
+  handleSearchExercises (event) {
+    let searchText = event.nativeEvent.text;
+    this.setState({query: searchText});
     var options = {
       shouldSort: true,
       matchAllTokens: true,
@@ -60,15 +62,14 @@ class WorkoutScreen extends React.Component {
           style={style.input}
           placeholder='Search Exercises'
           value={this.state.query}
-          onChangeText={(text) => this.setState({ query: text })}
-          onEndEditing={this.handleSearchExercises}
-          onSubmitEditing={this.handleSearchExercises}
+          onChange={this.handleSearchExercises}
           returnKeyType='search'
         />
         <ListView
           style={style.list}
           initialListSize={1}
-          removeClippedSubviews = {false}
+          removeClippedSubviews={false}
+          enableEmptySections={true}
           dataSource={this.state.dataSource}
           renderRow={(rowData) => this.renderRow(rowData)}
         />
