@@ -5,5 +5,5 @@
   "strict": false,
   "minify": false,
   "urlType": "exp",
-  "urlRandomness": null
+  "urlRandomness": "h3-sru"
 }
