@@ -35,7 +35,7 @@ export default StyleSheet.create({
     height: 40,
     backgroundColor: 'white',
     marginBottom: 10,
-    marginTop: 10
+    marginTop: 10,    
   },
   modalBackgroundStyle: {
     backgroundColor: '#f5fcff'

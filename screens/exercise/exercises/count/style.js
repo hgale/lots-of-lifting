@@ -11,7 +11,30 @@ export default StyleSheet.create({
     marginTop: 25,
     color: 'black',
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  repsRow: {
+    height: 40,
+    marginTop: 20,
+    marginBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    borderWidth: 4,
+    borderColor: '#E4E4E4',
+    backgroundColor: 'white'
+  },
+  repsPrompt: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 10
+  },
+  input: {
+    marginRight : 10,
+    fontSize: 20,
+    width: 200
   },
   closeButton: {
     flexDirection: 'row',

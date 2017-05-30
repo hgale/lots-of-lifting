@@ -1,22 +1,36 @@
 /**
- * Display an exercise and its associated UI.
+ * Display an exercise and its associated UI inside of a modal.
  */
 
 import React, {PropTypes} from 'react'
 import { View, Text, Modal, TouchableOpacity, Image } from 'react-native'
 import GestureRecognizer from 'react-native-swipe-gestures'
 
-import style from './style'
 import CloseImage from '../../assets/x.png'
+import ExerciseTypes from './types'
+
+import Count from './exercises/count'
 
 class Exercise extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.getWorkout = this.getWorkout.bind(this)
+  }
+
+  getWorkout () {
+    // TODO: wire up the other workout types
+    switch (this.props.type) {
+      case ExerciseTypes.count:
+      case ExerciseTypes.weight:
+      case ExerciseTypes.time:
+      default:
+        return <Count {...this.props} />
+    }
   }
 
   render () {
-    const { title, type, saveWorkout, close } = this.props
-
+    const { close } = this.props
+    let currentWorkout = this.getWorkout()
     return (
       <GestureRecognizer
         onSwipeDown={close}
@@ -27,17 +41,7 @@ class Exercise extends React.Component {
            visible={true}
            onRequestClose={close}
            >
-          <View style={style.container}>
-              <View style={style.closeButton}>
-                 <TouchableOpacity
-                   onPress={close}>
-                   <View style={style.closeImageContainer}>
-                     <Image style={style.closeImage} source={CloseImage} />
-                   </View>
-                 </TouchableOpacity>
-               </View>
-              <Text style={style.title}>{title}</Text>
-            </View>
+           {currentWorkout}
          </Modal>
       </GestureRecognizer>
     )
@@ -46,8 +50,8 @@ class Exercise extends React.Component {
 
 Exercise.propTypes = {
   title: React.PropTypes.string.isRequired,
-  // TODO: figure out how to check for enum
-  type: React.PropTypes.string.isRequired,
+  type: PropTypes.oneOf([ExerciseTypes.count, ExerciseTypes.weight, ExerciseTypes.time]).isRequired,
+  data: React.PropTypes.object,
   saveWorkout: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired
 }
