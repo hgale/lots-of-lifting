@@ -24,9 +24,13 @@
   "dependencies": {
     "expo": "^16.0.0",
     "fuse.js": "^3.0.4",
+    "moment": "^2.18.1",
     "react": "16.0.0-alpha.6",
     "react-native": "^0.43.4",
     "react-native-swipe-gestures": "^1.0.2",
-    "react-navigation": "^1.0.0-beta.11"
+    "react-navigation": "^1.0.0-beta.11",
+    "redux": "^3.6.0",
+    "redux-persist": "^4.8.0",
+    "redux-thunk": "^2.2.0"
   }
 }

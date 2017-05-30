@@ -10,6 +10,7 @@ import CloseImage from '../../assets/x.png'
 import ExerciseTypes from './types'
 
 import Count from './exercises/count'
+import Weight from './exercises/weight'
 
 class Exercise extends React.Component {
   constructor(props) {
@@ -20,8 +21,9 @@ class Exercise extends React.Component {
   getWorkout () {
     // TODO: wire up the other workout types
     switch (this.props.type) {
-      case ExerciseTypes.count:
       case ExerciseTypes.weight:
+        return <Weight {...this.props} />
+      case ExerciseTypes.count:
       case ExerciseTypes.time:
       default:
         return <Count {...this.props} />
