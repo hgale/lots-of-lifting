@@ -28,6 +28,7 @@ class Count extends React.Component {
     const { title, saveWorkout, close } = this.props
     const { data } = this.state
     let numberOfReps = data ? data.reps : ''
+    // TODO: move done button into its own reusable component
     // TODO: revisit this, as keyboardType='numbers-and-punctuation' is not cross platform
     return (
       <View style={style.container}>
@@ -51,6 +52,11 @@ class Count extends React.Component {
               returnKeyType='done'
             />
           </View>
+          <TouchableOpacity
+            style={style.doneButton}
+            onPress={ () => {this.props.saveWorkout(this.state.data) }}>
+            <Text style={style.doneButtonTextLight}>Save</Text>
+          </TouchableOpacity>
         </View>
     )
   }

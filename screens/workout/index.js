@@ -40,6 +40,7 @@ class WorkoutScreen extends React.Component {
   handleSaveExercise (exercise) {
     // TODO: Wire up to redux
     console.log('handleSaveExercise hit with, ', exercise);
+    this.setState({selectedExercise: null})
   }
 
   handleSearchExercises (event) {
