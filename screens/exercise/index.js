@@ -4,6 +4,7 @@
 
 import React, {PropTypes} from 'react'
 import { View, Text, Modal, TouchableOpacity, Image } from 'react-native'
+import GestureRecognizer from 'react-native-swipe-gestures'
 
 import style from './style'
 import CloseImage from '../../assets/x.png'
@@ -15,25 +16,30 @@ class Exercise extends React.Component {
 
   render () {
     const { title, type, saveWorkout, close } = this.props
+
     return (
-      <Modal
-         animationType={'none'}
-         transparent={false}
-         visible={true}
-         onRequestClose={close}
-         >
-         <View style={style.container}>
-          <View style={style.closeButton}>
-             <TouchableOpacity
-               onPress={close}>
-               <View style={style.closeImageContainer}>
-                 <Image style={style.closeImage} source={CloseImage} />
+      <GestureRecognizer
+        onSwipeDown={close}
+        config={{velocityThreshold: 0.3, directionalOffsetThreshold: 80}}>
+        <Modal
+           animationType={'none'}
+           transparent={false}
+           visible={true}
+           onRequestClose={close}
+           >
+          <View style={style.container}>
+              <View style={style.closeButton}>
+                 <TouchableOpacity
+                   onPress={close}>
+                   <View style={style.closeImageContainer}>
+                     <Image style={style.closeImage} source={CloseImage} />
+                   </View>
+                 </TouchableOpacity>
                </View>
-             </TouchableOpacity>
-           </View>
-          <Text style={style.title}>{title}</Text>
-        </View>
-       </Modal>
+              <Text style={style.title}>{title}</Text>
+            </View>
+         </Modal>
+      </GestureRecognizer>
     )
   }
 }

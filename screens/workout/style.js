@@ -10,9 +10,10 @@ export default StyleSheet.create({
   },
   title: {
     marginTop: 25,
-    color: 'black',
+    color: '#929292',
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   list: {
     borderWidth: 4,
