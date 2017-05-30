@@ -2,8 +2,7 @@
  * Workout tracker component
  */
 
-import React from 'react'
-
+import React, { Component }  from 'react'
 import {
   View,
   Text,
@@ -11,6 +10,7 @@ import {
   ListView,
   TouchableHighlight,
 } from 'react-native'
+import { connect } from 'react-redux'
 
 import Fuse from 'fuse.js'
 
@@ -21,13 +21,13 @@ import style from './style'
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
-class WorkoutScreen extends React.Component {
+class WorkoutScreen extends Component {
   static navigationOptions = {
     tabBarLabel: 'Workout'
   }
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       query: '',
       dataSource: ds.cloneWithRows(Exercises),
@@ -79,34 +79,50 @@ class WorkoutScreen extends React.Component {
 
   render () {
     return (
-      <View style={style.container}>
-        { this.state.selectedExercise ?
-          <Exercise
-            type={this.state.selectedExercise.type}
-            title={this.state.selectedExercise.title}
-            saveWorkout={this.handleSaveExercise}
-            close={() => {this.setState({selectedExercise: null})}}/>
-            : null
-        }
-        <Text style={style.title}>Create a Workout</Text>
-        <TextInput
-          style={style.input}
-          placeholder='Search Exercises'
-          value={this.state.query}
-          onChange={this.handleSearchExercises}
-          returnKeyType='search'
-        />
-        <ListView
-          style={style.list}
-          initialListSize={1}
-          removeClippedSubviews={false}
-          enableEmptySections={true}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
-        />
-      </View>
+        <View style={style.container}>
+          { this.state.selectedExercise ?
+            <Exercise
+              type={this.state.selectedExercise.type}
+              title={this.state.selectedExercise.title}
+              saveWorkout={this.handleSaveExercise}
+              close={() => {this.setState({selectedExercise: null})}}/>
+              : null
+          }
+          <Text style={style.title}>Create a Workout</Text>
+          <TextInput
+            style={style.input}
+            placeholder='Search Exercises'
+            value={this.state.query}
+            onChange={this.handleSearchExercises}
+            returnKeyType='search'
+          />
+          <ListView
+            style={style.list}
+            initialListSize={1}
+            removeClippedSubviews={false}
+            enableEmptySections={true}
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow.bind(this)}
+          />
+        </View>
     )
   }
 }
 
-export default WorkoutScreen
+const mapStateToProps = (state, props) => {
+  return {
+    currentWorkout: state.currentWorkout
+  }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+  }
+}
+
+const reduxContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WorkoutScreen)
+
+export default reduxContainer

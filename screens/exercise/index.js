@@ -11,6 +11,7 @@ import ExerciseTypes from './types'
 
 import Count from './exercises/count'
 import Weight from './exercises/weight'
+import Time from './exercises/time'
 
 class Exercise extends React.Component {
   constructor(props) {
@@ -23,8 +24,9 @@ class Exercise extends React.Component {
     switch (this.props.type) {
       case ExerciseTypes.weight:
         return <Weight {...this.props} />
-      case ExerciseTypes.count:
       case ExerciseTypes.time:
+        return <Time {...this.props} />
+      case ExerciseTypes.count:
       default:
         return <Count {...this.props} />
     }

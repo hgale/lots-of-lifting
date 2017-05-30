@@ -9,41 +9,25 @@ import style from './style'
 import CloseImage from '../../../../assets/x.png'
 
 
-class Weight extends React.Component {
+class Time extends React.Component {
   constructor(props) {
     super(props)
-    let data = this.props.data ? this.props.data : {}
-    console.log('Constructor data ', data);
     this.state = {
-      data: data
+      data: this.props.data
     }
-    this.handleInputReps = this.handleInputReps.bind(this)
-    this.handleInputWeight = this.handleInputWeight.bind(this)
+    this.handleInputTime = this.handleInputTime.bind(this)
   }
 
-  handleInputReps (event) {
-    let reps = event.nativeEvent.text
-    let data = this.state.data
-    data['reps'] = reps
-    this.setState({data: data})
-    console.log('new state ', this.state.data)
-  }
-
-  // TODO: make this lbs for now but later might want
-  // to make it so we can use metric
-  handleInputWeight (event) {
-    let weight = event.nativeEvent.text
-    let data = this.state.data
-    data['weight'] = weight
-    this.setState({data: data})
+  handleInputTime (event) {
+    let time = event.nativeEvent.text
+    this.setState({data: { 'time' : time }})
     console.log('new state ', this.state.data);
   }
 
   render () {
     const { title, saveWorkout, close } = this.props
     const { data } = this.state
-    let numberOfReps = data ? data.reps : ''
-    let weight = data ? data.weight : ''
+    let time = data ? data.time : ''
     // TODO: move done button into its own reusable component
     // TODO: revisit this, as keyboardType='numbers-and-punctuation' is not cross platform
     return (
@@ -58,22 +42,13 @@ class Weight extends React.Component {
            </View>
           <Text style={style.title}>{title}</Text>
           <View style={style.repsRow}>
-            <Text style={style.weightPrompt}>lbs: </Text>
+            <Text style={style.repsPrompt}>Duration: </Text>
             <TextInput
-              style={style.inputWeight}
-              placeholder='input lbs'
-              value={weight}
+              style={style.input}
+              placeholder='Enter time'
+              value={time}
               keyboardType='numbers-and-punctuation'
-              onChange={this.handleInputWeight}
-              returnKeyType='done'
-            />
-            <Text style={style.repsPrompt}>Reps: </Text>
-            <TextInput
-              style={style.inputReps}
-              placeholder='input reps'
-              value={numberOfReps}
-              keyboardType='numbers-and-punctuation'
-              onChange={this.handleInputReps}
+              onChange={this.handleInputTime}
               returnKeyType='done'
             />
           </View>
@@ -87,11 +62,11 @@ class Weight extends React.Component {
   }
 }
 
-Weight.propTypes = {
+Time.propTypes = {
   title: React.PropTypes.string.isRequired,
   data: React.PropTypes.object,
   saveWorkout: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired
 }
 
-export default Weight
+export default Time
