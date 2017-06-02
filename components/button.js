@@ -5,7 +5,6 @@ import { Text, TouchableOpacity } from 'react-native'
 import style from './style.js'
 
 const Button = (props) => {
-
   return (
     <TouchableOpacity
       style={style.doneButton}

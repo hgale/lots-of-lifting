@@ -17,6 +17,7 @@ import Fuse from 'fuse.js'
 import {setDate, appendExercise} from '../../actions/currentWorkout/'
 import Exercises from './exercises'
 import Exercise from '../exercise/'
+import Button from '../../components/button'
 
 import style from './style'
 
@@ -39,12 +40,9 @@ class WorkoutScreen extends Component {
   }
 
   handleSaveExercise (exercise) {
-    // TODO: Wire up to redux
-    console.log('handleSaveExercise hit with, ', exercise);
     this.setState({selectedExercise: null})
     let {setDate, workoutDate, appendExercise } = this.props
     if (!workoutDate) {
-      console.log('workout date not set');
       setDate(new Date())
     }
     appendExercise(exercise)
@@ -58,7 +56,7 @@ class WorkoutScreen extends Component {
       matchAllTokens: true,
       threshold: 0.2,
       keys: [
-        "title"
+        'title'
       ]
     }
     let fuse = new Fuse(Exercises, options)
@@ -83,6 +81,7 @@ class WorkoutScreen extends Component {
    }
 
   render () {
+    let { displayCurrentWorkout } = this.props
     return (
         <View style={style.container}>
           { this.state.selectedExercise ?
@@ -109,6 +108,12 @@ class WorkoutScreen extends Component {
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}
           />
+          { displayCurrentWorkout ?
+            <View style={{marginTop:5}}>
+              <Button text={'Current Workout'}
+                action={() => { console.log('Show current workout');}} />
+            </View>
+            : null }
         </View>
     )
   }
