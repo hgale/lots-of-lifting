@@ -12,7 +12,6 @@ const appReducer = combineReducers({
 let middleware = []
 middleware.push(thunk)
 
-// a function which can create our store and auto-persist the data
 export default () => {
   let store = {}
 

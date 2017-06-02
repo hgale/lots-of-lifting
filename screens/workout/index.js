@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 
 import Fuse from 'fuse.js'
 
+import {setDate, appendExercise} from '../../actions/currentWorkout/'
 import Exercises from './exercises'
 import Exercise from '../exercise/'
 
@@ -41,6 +42,12 @@ class WorkoutScreen extends Component {
     // TODO: Wire up to redux
     console.log('handleSaveExercise hit with, ', exercise);
     this.setState({selectedExercise: null})
+    let {setDate, workoutDate, appendExercise } = this.props
+    if (!workoutDate) {
+      console.log('workout date not set');
+      setDate(new Date())
+    }
+    appendExercise(exercise)
   }
 
   handleSearchExercises (event) {
@@ -62,8 +69,6 @@ class WorkoutScreen extends Component {
   }
 
   onPressRow(rowData) {
-    console.log('onPressRow hit new new')
-    console.log(rowData)
     this.setState({selectedExercise: rowData})
   }
 
@@ -110,13 +115,18 @@ class WorkoutScreen extends Component {
 }
 
 const mapStateToProps = (state, props) => {
+  let currentWorkout = state.currentWorkout
   return {
-    currentWorkout: state.currentWorkout
+    displayCurrentWorkout: (currentWorkout.date !== null && currentWorkout.exercises.length >= 0),
+    workoutDate: currentWorkout.date
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
+  //{setDate, appendExercise
   return {
+    setDate: (date) => dispatch(setDate(date)),
+    appendExercise: (exercise) => dispatch(appendExercise(exercise))
   }
 }
 
