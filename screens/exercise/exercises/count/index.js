@@ -7,6 +7,7 @@ import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native'
 
 import style from './style'
 import CloseImage from '../../../../assets/x.png'
+import Button from '../../../../components/button'
 
 
 class Count extends React.Component {
@@ -52,11 +53,7 @@ class Count extends React.Component {
               returnKeyType='done'
             />
           </View>
-          <TouchableOpacity
-            style={style.doneButton}
-            onPress={ () => {this.props.saveWorkout(this.state.data) }}>
-            <Text style={style.doneButtonTextLight}>Save</Text>
-          </TouchableOpacity>
+          <Button text={'Save'} action={() => {this.props.saveWorkout(this.state.data) }} />
         </View>
     )
   }
